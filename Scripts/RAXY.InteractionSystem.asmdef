@@ -1,0 +1,14 @@
+{
+    "name": "RAXY.InteractionSystem",
+    "rootNamespace": "RAXY.InteractionSystem",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
