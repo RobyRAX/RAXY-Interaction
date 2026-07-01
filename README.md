@@ -4,7 +4,7 @@ RAXY Interaction System provides a lightweight interaction foundation for Unity 
 
 ## Features
 
-- **Interactable** — target component with tag, `OnScanned`, and `OnInteracted` UnityEvents
+- **Interactable** — target component with tag, `OnScanEnter`, `OnScanExit`, and `OnInteracted` UnityEvents
 - **Interactor** — periodic sphere scan, selection cycling, and `Interact()` dispatch
 - **IInteractableTagProvider** — optional editor tag dropdown source for `Interactable`
 

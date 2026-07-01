@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace RAXY.InteractionSystem
@@ -58,7 +59,11 @@ namespace RAXY.InteractionSystem
 
         [TitleGroup("Events")]
         [FoldoutGroup("Events/Events")]
-        public UnityEvent OnScanned;
+        [FormerlySerializedAs("OnScanned")]
+        public UnityEvent OnScanEnter;
+
+        [FoldoutGroup("Events/Events")]
+        public UnityEvent OnScanExit;
 
         [FoldoutGroup("Events/Events")]
         public UnityEvent OnInteracted;

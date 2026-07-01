@@ -76,6 +76,8 @@ namespace RAXY.InteractionSystem
                 StopCoroutine(scanCoroutine);
                 scanCoroutine = null;
             }
+
+            ClearScannedInteractables();
         }
 
         public void Set_ScanRange(float newRange)
@@ -100,6 +102,7 @@ namespace RAXY.InteractionSystem
             if (ScannedInteractables == null)
                 ScannedInteractables = new List<Interactable>();
 
+            var previousScanned = new List<Interactable>(ScannedInteractables);
             ScannedInteractables.Clear();
 
             // Get all colliders within range using OverlapSphere
@@ -111,6 +114,18 @@ namespace RAXY.InteractionSystem
                 var interactable = collider.GetComponent<Interactable>();
                 if (interactable != null && !ScannedInteractables.Contains(interactable))
                     ScannedInteractables.Add(interactable);
+            }
+
+            foreach (var interactable in previousScanned)
+            {
+                if (!ScannedInteractables.Contains(interactable))
+                    interactable.OnScanExit?.Invoke();
+            }
+
+            foreach (var interactable in ScannedInteractables)
+            {
+                if (!previousScanned.Contains(interactable))
+                    interactable.OnScanEnter?.Invoke();
             }
 
             // Reset index if out of bounds
@@ -208,6 +223,19 @@ namespace RAXY.InteractionSystem
 
             var tags = _lastEmittedInteractables.Select(i => i.InteractableTag).ToList();
             OnInteractableUpdated?.Invoke(tags, SelectedIndex);
+        }
+
+        private void ClearScannedInteractables()
+        {
+            if (ScannedInteractables == null || ScannedInteractables.Count == 0)
+                return;
+
+            foreach (var interactable in ScannedInteractables)
+                interactable.OnScanExit?.Invoke();
+
+            ScannedInteractables.Clear();
+            SelectedIndex = 0;
+            RaiseInteractableUpdatedEvent();
         }
 
         private IEnumerator ScanInteractablesCo()
