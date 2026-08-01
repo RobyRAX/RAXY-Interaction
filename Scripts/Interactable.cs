@@ -11,6 +11,10 @@ namespace RAXY.InteractionSystem
     public class Interactable : MonoBehaviour
     {
         [TitleGroup("Tag")]
+        [SerializeField]
+        bool useTagProvider;
+
+        [TitleGroup("Tag")]
         [HideIf("@useTagProvider")]
         [SerializeField]
         [LabelText("Interactable Tag")]
@@ -22,10 +26,6 @@ namespace RAXY.InteractionSystem
         [LabelText("Interactable Tag")]
         [ValueDropdown("Tags")]
         string interactableDropdownTag;
-
-        [TitleGroup("Tag")]
-        [SerializeField]
-        bool useTagProvider;
 
         public string InteractableTag
         {
