@@ -6,6 +6,10 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace RAXY.InteractionSystem
 {
     public class Interactable : MonoBehaviour
@@ -55,6 +59,53 @@ namespace RAXY.InteractionSystem
         }
 
         List<string> Tags => TagProvider != null ? TagProvider.Tags : new List<string>();
+
+        [HorizontalGroup("Tag/Op")]
+        [Button]
+        [ShowIf("@useTagProvider")]
+        void Find_TagProviderSO()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject");
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                ScriptableObject so = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
+                if (so is IInteractableTagProvider)
+                {
+                    tagProviderObj = so;
+                    return;
+                }
+            }
+
+            tagProviderObj = null;
+        }
+
+        [HorizontalGroup("Tag/Op")]
+        [Button]
+        [ShowIf("@useTagProvider")]
+        void Find_TagProviderObj()
+        {
+            string[] guids = AssetDatabase.FindAssets("t:Prefab");
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (prefab == null)
+                    continue;
+
+                var behaviours = prefab.GetComponentsInChildren<MonoBehaviour>(true);
+                foreach (var behaviour in behaviours)
+                {
+                    if (behaviour is IInteractableTagProvider)
+                    {
+                        tagProviderObj = behaviour;
+                        return;
+                    }
+                }
+            }
+
+            tagProviderObj = null;
+        }
 #endif
 
         [TitleGroup("Events")]
