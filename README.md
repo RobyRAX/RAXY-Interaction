@@ -16,6 +16,14 @@ RAXY Interaction System provides a lightweight interaction foundation for Unity 
 4. Subscribe to `Interactor.OnInteractableUpdated` for UI feedback.
 5. Call `Interactor.Interact()` from input to trigger the selected target.
 
+## Sample
+
+Package Manager → **RAXY Interaction System** → Samples → **Import** Interaction Sample.
+
+Open `InteractionSample.unity` and press Play. WASD moves the scanner, Tab cycles the prompt list, and E or a list click runs the selected interaction.
+
+The sample expects TextMeshPro, the Input System, and URP. Interactables use layer 12. In Project Alice that layer is named Interactable.
+
 ## Dependencies
 
 - **Odin Inspector** (project plugin) — editor attributes on `Interactable` and `Interactor`; runtime works without Odin if attributes are stripped

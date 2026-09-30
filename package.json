@@ -1,9 +1,16 @@
 {
   "name": "com.raxy.interaction",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "RAXY Interaction System",
   "author": {
     "name": "RobyRAX",
     "url": "https://github.com/RobyRAX"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Interaction Sample",
+      "description": "Playable scene with a WASD scanner, three interactables, and a prompt list UI. Requires TextMeshPro, the Input System, and URP.",
+      "path": "Samples~/Interaction Sample"
+    }
+  ]
 }
